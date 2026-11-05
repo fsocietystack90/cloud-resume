@@ -8,29 +8,29 @@ on:
       - ".github/workflows/deploy-frontend.yml"
   workflow_dispatch:
 
-  permissions:
-    id-token: write
-    contents: read
+permissions:
+  id-token: write
+  contents: read
 
-  jobs:
-    deploy:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Get the code
-          uses: actions/checkout@v4
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
 
-        - name: Login to Azure
-          uses: azure/login@v2
-          with:
-            client-id: ${{ secrets.AZURE_CLIENT_ID }}
-            tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-            subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-        - name: Upload to $web
-          run:  |
-            az storage blob upload-batch \
-            --account-name ststaticsite2026 \
-            --auth-mode login \
-            --destination '$web' \
-            --source frontend \
-            --overwrite
+      - name: Upload to $web
+        run:  |
+          az storage blob upload-batch \
+          --account-name ststaticsite2026 \
+          --auth-mode login \
+          --destination '$web' \
+          --source frontend \
+          --overwrite
