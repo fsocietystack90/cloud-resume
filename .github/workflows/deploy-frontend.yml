@@ -17,7 +17,7 @@ on:
       runs-on: ubuntu-latest
       steps:
         - name: Get the code
-          uses: action/checkout@v4
+          uses: actions/checkout@v4
 
         - name: Login to Azure
           uses: azure/login@v2
@@ -28,7 +28,7 @@ on:
 
         - name: Upload to $web
           run:  |
-            az storage blob upload-branch \
+            az storage blob upload-batch \
             --account-name ststaticsite2026 \
             --auth-mode login \
             --destination '$web' \
